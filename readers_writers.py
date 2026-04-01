@@ -73,8 +73,8 @@ class ReadersWritersMonitor:
             print(f"Reader {reader_id} stops reading. Active readers = {self.active_readers}")
 
         # 3. If this was the last reader, wake waiting threads.
-        if self.active_readers == 0:
-            self.condition.notify_all()
+            if self.active_readers == 0:
+                self.condition.notify_all()
 
 
     def start_write(self, writer_id: int) -> None:
