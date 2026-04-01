@@ -46,29 +46,36 @@ class ReadersWritersMonitor:
         """
         Called before a reader starts reading.
         Block the reader if a writer is writing.
-
-        TODO:
-        1. Acquire the condition using 'with self.condition:'.
-        2. Wait while a writer is active.
-        3. Increase active_readers.
-        4. Print a useful log message.
         """
         with self.condition:
-            # TODO: Replace 'pass' with your logic
-            pass
+        #TODO:
+        #1. Acquire the condition using 'with self.condition:'.
+        #2. Wait while a writer is active.
+            while self.active_writers > 0:
+                print(f"Reader {reader_id} is waiting to read")
+                self.condition.wait()
+        #3. Increase active_readers.
+        self.active_readers += 1
+        #4. Print a useful log message.
+        print(f"Reader {reader_id} starts reading. Active readers = {self.active_readers}")
+
+
 
     def end_read(self, reader_id: int) -> None:
         """
         Called after a reader finishes reading.
-
-        TODO:
-        1. Decrease active_readers.
-        2. Print a useful log message.
-        3. If this was the last reader, wake waiting threads.
         """
         with self.condition:
-            # TODO: Replace 'pass' with your logic
-            pass
+            #TODO:
+            # 1. Decrease active_readers.
+            self.active_readers -= 1
+            # 2. Print a useful log message.
+            print(f"Reader {reader_id} stops reading. Active readers = {self.active_readers}")
+
+        # 3. If this was the last reader, wake waiting threads.
+        if self.active_readers == 0:
+            self.condition.notify_all()
+
 
     def start_write(self, writer_id: int) -> None:
         """
