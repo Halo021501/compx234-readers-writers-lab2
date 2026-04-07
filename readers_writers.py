@@ -1,6 +1,8 @@
 """
 COMPX234 - Lab Assignment 2
 Readers-Writers Problem using a Monitor in Python
+###Name:Chen Chunhao
+###ID:20243006949
 
 Starter code
 ------------
